@@ -5,6 +5,7 @@ import io.virinchi.springweb.Repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,7 @@ public class SignupLoginController {
     }
 
     @PostMapping("/login")
-    public String loginPost(HttpServletRequest request){
+    public String loginPost(HttpServletRequest request, Model m){
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -56,6 +57,13 @@ public class SignupLoginController {
             return "home";
         }
 
+        /*
+            Kunai page ma message pathauna hamlai MODEL chaixa
+            Controller bata html page ma MODEL le message transfer garxa
+            MODEL ma attribute rakhera pathauxau
+        */
+
+        m.addAttribute("error", "Username or password is incorrect");
         return "loginPage";
     }
 }
