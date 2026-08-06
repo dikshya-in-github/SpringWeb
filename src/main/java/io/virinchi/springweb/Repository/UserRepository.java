@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 */
 public interface UserRepository extends JpaRepository<UserTbl, Integer> {
 
+    //Custom function however, notice that existsBy function is provided by repo itself
+    boolean existsByUsernameAndPassword(String username, String password);
 }
