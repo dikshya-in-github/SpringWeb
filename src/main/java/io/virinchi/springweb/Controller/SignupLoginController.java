@@ -3,6 +3,7 @@ package io.virinchi.springweb.Controller;
 import io.virinchi.springweb.Model.UserTbl;
 import io.virinchi.springweb.Repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,16 @@ public class SignupLoginController {
         String hashPassword = DigestUtils.md5DigestAsHex(password.getBytes());
 
         if(uRepo.existsByUsernameAndPassword(username, hashPassword)){
+
+            HttpSession session = request.getSession(); //request vaneko http ko request ho. session http ma banaune
+
+            session.setAttribute("username", username);
+            /*
+                yedi userko username ra password mileko xa vane usko
+                session ma auta attribute janxa
+                session janxa until user logs out
+            */
+
             return "home";
         }
 
@@ -62,7 +73,6 @@ public class SignupLoginController {
             Controller bata html page ma MODEL le message transfer garxa
             MODEL ma attribute rakhera pathauxau
         */
-
         m.addAttribute("error", "Username or password is incorrect");
         return "loginPage";
     }

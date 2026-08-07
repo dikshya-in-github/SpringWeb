@@ -10,4 +10,9 @@ public class AllController {
     public String firstPage(){
         return "firstPage.html";
     }
+
+    @GetMapping("/home")
+    public String homeGet(){
+        return "home.html";
+    }
 }
